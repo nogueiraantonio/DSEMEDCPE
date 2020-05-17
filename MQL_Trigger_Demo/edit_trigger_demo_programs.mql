@@ -1,0 +1,6 @@
+mod program DSEMEDCPE_Policy_Demo java file $PATH/DSEMEDCPE/MQL_Trigger_Demo/PolicyTriggerHandlerDemoJPO.java execute immediate;
+compile program DSEMEDCPE_Policy_Demo;
+mod program DSEMEDCPE_Relationship_Demo java file $PATH/DSEMEDCPE/MQL_Trigger_Demo/RelationshipTriggerHandlerDemoJPO.java execute immediate;
+compile program DSEMEDCPE_Relationship_Demo;
+mod program DSEMEDCPE_Type_Demo java file $PATH/DSEMEDCPE/MQL_Trigger_Demo/TypeTriggerHandlerDemoJPO.java execute immediate;
+compile program DSEMEDCPE_Type_Demo;
