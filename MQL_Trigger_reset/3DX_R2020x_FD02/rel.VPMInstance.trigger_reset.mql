@@ -1,0 +1,43 @@
+#remove all (non-derived) trigger
+mod type VPMInstance remove trigger addinterface check;
+mod type VPMInstance remove trigger addinterface override;
+mod type VPMInstance remove trigger addinterface action;
+mod type VPMInstance remove trigger addownership check;
+mod type VPMInstance remove trigger addownership override;
+mod type VPMInstance remove trigger addownership action;
+mod type VPMInstance remove trigger create check;
+mod type VPMInstance remove trigger create override;
+mod type VPMInstance remove trigger create action;
+mod type VPMInstance remove trigger delete check;
+mod type VPMInstance remove trigger delete override;
+mod type VPMInstance remove trigger delete action;
+mod type VPMInstance remove trigger freeze check;
+mod type VPMInstance remove trigger freeze override;
+mod type VPMInstance remove trigger freeze action;
+mod type VPMInstance remove trigger modify check;
+mod type VPMInstance remove trigger modify override;
+mod type VPMInstance remove trigger modify action;
+mod type VPMInstance remove trigger modifyattribute check;
+mod type VPMInstance remove trigger modifyattribute override;
+mod type VPMInstance remove trigger modifyattribute action;
+mod type VPMInstance remove trigger modifyfrom check;
+mod type VPMInstance remove trigger modifyfrom override;
+mod type VPMInstance remove trigger modifyfrom action;
+mod type VPMInstance remove trigger modifyto check;
+mod type VPMInstance remove trigger modifyto override;
+mod type VPMInstance remove trigger modifyto action;
+mod type VPMInstance remove trigger removeinterface check;
+mod type VPMInstance remove trigger removeinterface override;
+mod type VPMInstance remove trigger removeinterface action;
+mod type VPMInstance remove trigger removeownership check;
+mod type VPMInstance remove trigger removeownership override;
+mod type VPMInstance remove trigger removeownership action;
+mod type VPMInstance remove trigger thaw check;
+mod type VPMInstance remove trigger thaw override;
+mod type VPMInstance remove trigger thaw action;
+mod type VPMInstance remove trigger transaction check;
+mod type VPMInstance remove trigger transaction override;
+mod type VPMInstance remove trigger transaction action;
+
+#add (non-derived) trigger
+mod relationship 'VPMInstance' add trigger delete override emxTriggerManager input 'RelationshipVPMInstanceDeleteOverride';
