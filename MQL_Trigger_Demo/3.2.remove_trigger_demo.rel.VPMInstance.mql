@@ -1,0 +1,29 @@
+del businessobject "eService Trigger Program Parameters" RelationshipVPMInstanceAddinterfaceAction DSEMEDCPE;
+del businessobject "eService Trigger Program Parameters" RelationshipVPMInstanceAddinterfaceCheck DSEMEDCPE;
+del businessobject "eService Trigger Program Parameters" RelationshipVPMInstanceAddownershipAction DSEMEDCPE;
+del businessobject "eService Trigger Program Parameters" RelationshipVPMInstanceAddownershipCheck DSEMEDCPE;
+del businessobject "eService Trigger Program Parameters" RelationshipVPMInstanceCreateAction DSEMEDCPE;
+del businessobject "eService Trigger Program Parameters" RelationshipVPMInstanceCreateCheck DSEMEDCPE;
+del businessobject "eService Trigger Program Parameters" RelationshipVPMInstanceDeleteAction DSEMEDCPE;
+del businessobject "eService Trigger Program Parameters" RelationshipVPMInstanceDeleteCheck DSEMEDCPE;
+del businessobject "eService Trigger Program Parameters" RelationshipVPMInstanceFreezeAction DSEMEDCPE;
+del businessobject "eService Trigger Program Parameters" RelationshipVPMInstanceFreezeCheck DSEMEDCPE;
+del businessobject "eService Trigger Program Parameters" RelationshipVPMInstanceModifyAction DSEMEDCPE;
+#manual edit (removed modify check)
+del businessobject "eService Trigger Program Parameters" RelationshipVPMInstanceModifyattributeAction DSEMEDCPE;
+del businessobject "eService Trigger Program Parameters" RelationshipVPMInstanceModifyattributeCheck DSEMEDCPE;
+del businessobject "eService Trigger Program Parameters" RelationshipVPMInstanceModifyfromAction DSEMEDCPE;
+del businessobject "eService Trigger Program Parameters" RelationshipVPMInstanceModifyfromCheck DSEMEDCPE;
+del businessobject "eService Trigger Program Parameters" RelationshipVPMInstanceModifytoAction DSEMEDCPE;
+del businessobject "eService Trigger Program Parameters" RelationshipVPMInstanceModifytoCheck DSEMEDCPE;
+del businessobject "eService Trigger Program Parameters" RelationshipVPMInstanceRemoveInterfaceAction DSEMEDCPE;
+del businessobject "eService Trigger Program Parameters" RelationshipVPMInstanceRemoveInterfaceCheck DSEMEDCPE;
+del businessobject "eService Trigger Program Parameters" RelationshipVPMInstanceRemoveownershipAction DSEMEDCPE;
+del businessobject "eService Trigger Program Parameters" RelationshipVPMInstanceRemoveownershipCheck DSEMEDCPE;
+del businessobject "eService Trigger Program Parameters" RelationshipVPMInstanceThawAction DSEMEDCPE;
+del businessobject "eService Trigger Program Parameters" RelationshipVPMInstanceThawCheck DSEMEDCPE;
+del businessobject "eService Trigger Program Parameters" RelationshipVPMInstanceTransactionAction DSEMEDCPE;
+#manual edit (removed transaction check)
+
+#Important: make sure that you run the "./DSEMEDCPE/MQL_Trigger_reset/3DX_R2020x_FD02/rel.VPMInstance.trigger_reset.mql"
+#to complete the reset of all VPMInstance triggers
