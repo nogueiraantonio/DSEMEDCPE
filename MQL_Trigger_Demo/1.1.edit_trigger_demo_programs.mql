@@ -1,6 +1,6 @@
-mod program DSEMEDCPE_Policy_Demo java file $PATH/DSEMEDCPE/MQL_Trigger_Demo/PolicyTriggerHandlerDemoJPO.java execute immediate;
-compile program DSEMEDCPE_Policy_Demo;
-mod program DSEMEDCPE_Relationship_Demo java file $PATH/DSEMEDCPE/MQL_Trigger_Demo/RelationshipTriggerHandlerDemoJPO.java execute immediate;
-compile program DSEMEDCPE_Relationship_Demo;
-mod program DSEMEDCPE_Type_Demo java file $PATH/DSEMEDCPE/MQL_Trigger_Demo/TypeTriggerHandlerDemoJPO.java execute immediate;
-compile program DSEMEDCPE_Type_Demo;
+mod program DSEMEDCPE_Policy_Demo file /home/data/RTV/DEMOR422/DSEMEDCPE/MQL_Trigger_Demo/PolicyTriggerHandlerDemoJPO.java ;
+compile program DSEMEDCPE_Policy_Demo force update;
+mod program DSEMEDCPE_Relationship_Demo file /home/data/RTV/DEMOR422/DSEMEDCPE/MQL_Trigger_Demo/RelationshipTriggerHandlerDemoJPO.java ;
+compile program DSEMEDCPE_Relationship_Demo force update;
+mod program DSEMEDCPE_Type_Demo file /home/data/RTV/DEMOR422/DSEMEDCPE/MQL_Trigger_Demo/TypeTriggerHandlerDemoJPO.java;
+compile program DSEMEDCPE_Type_Demo force update;

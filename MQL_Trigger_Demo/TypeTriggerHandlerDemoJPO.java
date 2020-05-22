@@ -86,8 +86,9 @@ public class ${CLASSNAME}
   "FROMALLFLAG", "FROMALLRELFLAG", "FROMCARD", "TOALLFLAG", "TOALLRELFLAG", "TOCARD",
   "CfgDynFiltering", "ConfigFilterFactory", "CHECKACCESSFLAG", "CHECKRANGEFLAG", "ENFORCEDLOCKINGFLAG", "HOME", "HOST", "LATTICE", "LOCKFLAG", "LOGICALID", "MAJORID", "MATRIXHOME", "MX_LOGGED_IN_USER_NAME", "OBJECT", "ORGANIZATION", "PATH", "TRIGGER_VAULT", "VAULT", "VERSIONID", "WORKSPACEPATH" };
 
-    private String STRICT_EXCLUSION_ARRAY[] = {"ATTRTYPE", "ATTRTYPEKIND", "POLICY", "REVISION", "TIMESTAMP", "OBJECTID", "OWNER", "USER", "TRANSACTION", "PROJECT"};
+    private String STRICT_EXCLUSION_ARRAY[] = {"ATTRTYPE", "TYPE", "NAME", "PHYSICALID", "ATTRTYPEKIND", "INVOCATION", "ORIGINAL_INVOCATION", "POLICY", "REVISION", "TIMESTAMP", "OBJECTID", "OWNER", "USER", "TRANSACTION", "PROJECT"};
 
+      
     private MatrixLogWriter m_logWriter = null;
   
       private MatrixLogWriter InitLogWriter(Context context){
@@ -110,7 +111,9 @@ public class ${CLASSNAME}
 	      ex.printStackTrace(System.out);
 	  }
     }
-
+    
+    
+   
     private boolean ExcludeEnv(String variableName, boolean isStrict)
     {
 	boolean exclude = true;
@@ -120,15 +123,36 @@ public class ${CLASSNAME}
 	   if (variableName.equalsIgnoreCase(EXCLUSION_ARRAY[i]))
 	   {
 	      return true;
-	   }
-	   
-	   if (isStrict && variableName.equalsIgnoreCase(STRICT_EXCLUSION_ARRAY[i]))
-	   {
-	      return true;
-	   }
+	   }	
+	}
+	
+	if (isStrict)
+	{
+	  for (int i = 0; i < STRICT_EXCLUSION_ARRAY.length; i++)
+	  {
+	    if (variableName.equalsIgnoreCase(STRICT_EXCLUSION_ARRAY[i]))
+	    {
+		return true;
+	    }
+	  }
 	}
 	
 	return false;
+    }
+
+    private String getVariableValue(Context ctx, String variableName)
+    {
+	String variableValue =  "";
+	
+	try
+	{
+	   variableValue = MqlUtil.mqlCommand(ctx, "get env " + variableName);
+	}
+	catch(Exception e)
+	{
+	    e.printStackTrace();
+	}
+	return variableValue;
     }
     
     private void printLocalVariables(Context ctx, boolean isStrict)
@@ -158,10 +182,30 @@ public class ${CLASSNAME}
 	}
     }
     
+    public void printArgs1(String methodName, Context ctx,  String[] args)
+    {
+	  printArgs(methodName, ctx);
+    }
+	
     public void printArgs(String methodName, Context ctx)
     {
 	log(ctx, "********");
 	log(ctx, methodName);
+	log(ctx, "********");
+	printLocalVariables(ctx, true);
+    }
+    
+    public void printArgsX(String methodName, Context ctx, String variableName)
+    {
+        String variableValue = getVariableValue(ctx, variableName);
+        
+        if (variableValue == null)
+        {
+           variableValue = "";
+        }
+        
+	log(ctx, "********");
+	log(ctx, methodName + " [" + variableValue + " ]");
 	log(ctx, "********");
 	printLocalVariables(ctx, true);
     }
@@ -172,10 +216,7 @@ public class ${CLASSNAME}
     }
 
 		
-	public void printArgs1(String methodName, Context ctx,String[] args)
-	{
-	     printArgs(methodName, ctx);
-	}
+
 	
  	public int addinterfaceCheck (Context ctx, String[] args)
 	{
@@ -299,7 +340,7 @@ public class ${CLASSNAME}
 	}
 	public int modifyattributeCheck (Context ctx, String[] args)
 	{
-		printArgs1(MODIFYATTRIBUTE_CHECK_MSG, ctx, args);
+		printArgsX(MODIFYATTRIBUTE_CHECK_MSG, ctx, "OBJECT");
 		return 0;
 	}
 	public int modifydescriptionCheck (Context ctx, String[] args)
@@ -464,7 +505,7 @@ public class ${CLASSNAME}
 	}
 	public int modifyattributeAction (Context ctx, String[] args)
 	{
-		printArgs1(MODIFYATTRIBUTE_ACTION_MSG, ctx, args);
+		printArgsX(MODIFYATTRIBUTE_ACTION_MSG, ctx, "OBJECT");
 		return 0;
 	}
 	public int modifydescriptionAction (Context ctx, String[] args)

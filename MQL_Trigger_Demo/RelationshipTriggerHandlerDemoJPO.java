@@ -79,12 +79,18 @@ public class ${CLASSNAME}
 	   if (variableName.equalsIgnoreCase(EXCLUSION_ARRAY[i]))
 	   {
 	      return true;
-	   }
-	   
-	   if (isStrict && variableName.equalsIgnoreCase(STRICT_EXCLUSION_ARRAY[i]))
-	   {
-	      return true;
-	   }
+	   }	
+	}
+	
+	if (isStrict)
+	{
+	  for (int i = 0; i < STRICT_EXCLUSION_ARRAY.length; i++)
+	  {
+	    if (variableName.equalsIgnoreCase(STRICT_EXCLUSION_ARRAY[i]))
+	    {
+		return true;
+	    }
+	  }
 	}
 	
 	return false;

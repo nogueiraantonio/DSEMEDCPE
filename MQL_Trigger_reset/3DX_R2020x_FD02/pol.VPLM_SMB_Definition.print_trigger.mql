@@ -1,0 +1,5 @@
+print policy VPLM_SMB_Definition select state[PRIVATE].trigger;
+print policy VPLM_SMB_Definition select state[IN_WORK].trigger;
+print policy VPLM_SMB_Definition select state[FROZEN].trigger;
+print policy VPLM_SMB_Definition select state[RELEASED].trigger;
+print policy VPLM_SMB_Definition select state[OBSOLETE].trigger;
