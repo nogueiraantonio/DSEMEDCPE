@@ -87,4 +87,5 @@ mod type VPMReference remove trigger unreserve override;
 mod type VPMReference remove trigger unreserve action;
 #add (non-derived) trigger
 mod type 'VPMReference' add trigger AddOwnership action emxTriggerManager input '3DX_TypeVPMReferenceAddownershipAction';
+mod type 'VPMReference' add trigger MajorRevision action emxTriggerManager input 'ENO3DNotification';
 mod type 'VPMReference' add trigger Transaction action emxTriggerManager input 'TypeAllLifecycleTransactionEvent';

@@ -1,0 +1,5 @@
+run /home/data/RTV/DEMOR422/DSEMEDCPE/MQL_Trigger_reset/3DX_R2020x_FD02/pol.VPLM_SMB_Definition.trigger_reset.mql;
+run /home/data/RTV/DEMOR422/DSEMEDCPE/MQL_Trigger_reset/3DX_R2020x_FD02/rel.VPMInstance.trigger_reset.mql;
+run /home/data/RTV/DEMOR422/DSEMEDCPE/MQL_Trigger_reset/3DX_R2020x_FD02/rel.VPMRepInstance.trigger_reset.mql;
+run /home/data/RTV/DEMOR422/DSEMEDCPE/MQL_Trigger_reset/3DX_R2020x_FD02/typ.VPMReference.trigger_reset.mql;
+run /home/data/RTV/DEMOR422/DSEMEDCPE/MQL_Trigger_reset/3DX_R2020x_FD02/typ.VPMRepReference.trigger_reset.mql;

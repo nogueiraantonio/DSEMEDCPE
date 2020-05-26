@@ -1,0 +1,5 @@
+run /home/data/RTV/DEMOR422/DSEMEDCPE/MQL_Trigger_Demo/2.0.add_trigger_demo.typ.VPMReference.mql;
+run /home/data/RTV/DEMOR422/DSEMEDCPE/MQL_Trigger_Demo/2.1.add_trigger_demo.typ.VPMRepReference.mql;
+run /home/data/RTV/DEMOR422/DSEMEDCPE/MQL_Trigger_Demo/2.2.add_trigger_demo.rel.VPMInstance.mql;
+run /home/data/RTV/DEMOR422/DSEMEDCPE/MQL_Trigger_Demo/2.3.add_trigger_demo.rel.VPMRepInstance.mql;
+run /home/data/RTV/DEMOR422/DSEMEDCPE/MQL_Trigger_Demo/2.4.add_trigger_demo.pol.VPLM_SMB_Definition.mql;
