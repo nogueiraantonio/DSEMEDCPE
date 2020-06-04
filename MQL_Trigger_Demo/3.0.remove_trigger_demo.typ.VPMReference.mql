@@ -1,5 +1,7 @@
 del businessobject "eService Trigger Program Parameters" TypeVPMReferenceAddinterfaceAction DSEMEDCPE;
 del businessobject "eService Trigger Program Parameters" TypeVPMReferenceAddinterfaceCheck DSEMEDCPE;
+del businessobject "eService Trigger Program Parameters" TypeVPMReferenceAddownershipCheck DSEMEDCPE;
+del businessobject "eService Trigger Program Parameters" TypeVPMReferenceAddownershipAction DSEMEDCPE;
 del businessobject "eService Trigger Program Parameters" TypeVPMReferenceBatchcloneAction DSEMEDCPE;
 del businessobject "eService Trigger Program Parameters" TypeVPMReferenceBatchcloneCheck DSEMEDCPE;
 del businessobject "eService Trigger Program Parameters" TypeVPMReferenceBatchreviseAction DSEMEDCPE;
