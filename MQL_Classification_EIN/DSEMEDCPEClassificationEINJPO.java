@@ -1,3 +1,20 @@
+// Copyright © 2020 Dassault Systèmes, Euromed, Customer Process Experience
+//
+// Permission is hereby granted, free of charge, to any person obtaining a copy of this software 
+// and associated documentation files (the “Software”), to deal in the Software without restriction, 
+// including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, 
+// and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so,
+// subject to the following conditions:
+// The above copyright notice and this permission notice shall be included in all copies 
+// or substantial portions of the Software.
+//
+//THE SOFTWARE IS PROVIDED “AS IS”, WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, 
+//INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR 
+//PURPOSE AND NONINFRINGEMENT. 
+//IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR 
+//OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT 
+//OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+
 import java.io.File;
 import java.io.FileWriter;   // Import the FileWriter class
 import java.io.IOException;  // Import the IOException class to handle errors
@@ -8,153 +25,45 @@ import java.util.Set;
 import matrix.db.*;
 import matrix.util.*;
 
-import com.matrixone.apps.domain.DomainObject;
-
 import com.matrixone.apps.domain.util.MqlUtil;
 import com.matrixone.apps.domain.util.EnoviaResourceBundle;
 import com.matrixone.apps.domain.util.ContextUtil;
 
 public class ${CLASSNAME}
 { 
-  //private String ADDINTERFACE_CHECK_MSG="addinterfaceCheck";
-  private String ADDINTERFACE_ACTION_MSG="addinterfaceAction";
-  
-  //It "seems" that physical ID, logical ID, major ID and version ID are the same?
-  private String EXCLUSION_ARRAY[] = {"ACCESSFLAG", "ALTOWNER1", "ALTOWNER2", "APPLICATION", 
-  "FROMALLFLAG", "FROMALLRELFLAG", "FROMCARD", "TOALLFLAG", "TOALLRELFLAG", "TOCARD",
-  "CfgDynFiltering", "ConfigFilterFactory", "CHECKACCESSFLAG", "CHECKRANGEFLAG", "ENFORCEDLOCKINGFLAG", "HOME", "HOST", "LATTICE", "LOCKFLAG", "LOGICALID", "MAJORID", "MATRIXHOME", "MX_LOGGED_IN_USER_NAME", "OBJECT", "ORGANIZATION", "PATH", "TRIGGER_VAULT", "VAULT", "VERSIONID", "WORKSPACEPATH" };
-
-    private String STRICT_EXCLUSION_ARRAY[] = {"ATTRTYPE", "TYPE", "NAME", "PHYSICALID", "ATTRTYPEKIND", "INVOCATION", "ORIGINAL_INVOCATION", "POLICY", "REVISION", "TIMESTAMP", "OBJECTID", "OWNER", "USER", "TRANSACTION", "PROJECT"};
-
-      
+    private String ADDINTERFACE_ACTION_MSG="addinterfaceAction";  
     private MatrixLogWriter m_logWriter = null;
   
-      private MatrixLogWriter InitLogWriter(Context context){
-	
-	  String strFileName        = "DSEMEDCPE_EIN_Demo.log";
-	  String strLogtype         = "";
-	  boolean bAllFlag          = false;
-	  return new MatrixLogWriter(context,strFileName,strLogtype,bAllFlag);
-	
-      }
-       
-     protected void log(Context ctx, String s)
-     {
-        if (m_logWriter == null) {
-          m_logWriter = InitLogWriter(ctx);
-         }
-	  try {
-	      m_logWriter.write(": "+s);
-	  }catch(Exception ex) {
-	      ex.printStackTrace(System.out);
-	  }
-    }
-    
-    
-   
-    private boolean ExcludeEnv(String variableName, boolean isStrict)
-    {
-	boolean exclude = true;
-	
-	for (int i = 0; i < EXCLUSION_ARRAY.length; i++)
-	{
-	   if (variableName.equalsIgnoreCase(EXCLUSION_ARRAY[i]))
-	   {
-	      return true;
-	   }	
-	}
-	
-	if (isStrict)
-	{
-	  for (int i = 0; i < STRICT_EXCLUSION_ARRAY.length; i++)
-	  {
-	    if (variableName.equalsIgnoreCase(STRICT_EXCLUSION_ARRAY[i]))
-	    {
-		return true;
-	    }
-	  }
-	}
-	
-	return false;
-    }
-
-    private String getVariableValue(Context ctx, String variableName)
-    {
-	String variableValue =  "";
-	
-	try
-	{
-	   variableValue = MqlUtil.mqlCommand(ctx, "get env " + variableName);
-	}
-	catch(Exception e)
-	{
-	    e.printStackTrace();
-	}
-	return variableValue;
-    }
-    
-    private void printLocalVariables(Context ctx, boolean isStrict)
-    {
-	try
-	{
-	  String localEnvsRaw = MqlUtil.mqlCommand(ctx, "list env");
-	
-	  String localEnvs[] = localEnvsRaw.split("\\r?\\n");
-	  
-	  for (int i = 0; i < localEnvs.length; i++)
-	  {
-	    String localEnv[] =localEnvs[i].split("=");
-	    
-	    if (localEnv.length == 2)
-	    {
-	      if ((localEnv[1] != null) && !ExcludeEnv(localEnv[0], isStrict))
-	      {
-		  log(ctx, localEnvs[i]);
-	      }
-	    }
-	  }
-	}
-	catch(Exception e)
-	{
-	    e.printStackTrace();
-	}
-    }
-    
-    public void printArgs1(String methodName, Context ctx,  String[] args)
-    {
-	  printArgs(methodName, ctx);
-    }
-	
-    public void printArgs(String methodName, Context ctx)
-    {
-	log(ctx, "********");
-	log(ctx, methodName);
-	log(ctx, "********");
-	printLocalVariables(ctx, true);
-    }
-    
-    public void printArgsX(String methodName, Context ctx, String variableName)
-    {
-        String variableValue = getVariableValue(ctx, variableName);
-        
-        if (variableValue == null)
-        {
-           variableValue = "";
-        }
-        
-	log(ctx, "********");
-	log(ctx, methodName + " [" + variableValue + " ]");
-	log(ctx, "********");
-	printLocalVariables(ctx, true);
-    }
-    
+    /**
+    * ctor.
+    *
+    * @param  ctx the session context
+    * @param  args trigger arguments
+    * @return
+    */
     public ${CLASSNAME}(Context ctx,String[] args) throws MatrixException
-    {
-	//printArgs("ctor", ctx);	
+    {		
 	log(ctx, "ctor");
     }
 
-		
+    /**
+    * Assigns a Enterprise Item Number based on a Classification interface.
+    *
+    * SETUP
+    * a) Define this as a Java deferred program JPO in the 3DEXPERIENCE database.
+    * b) Link this to an addinterface action trigger against the VPMReference type.
+    *
+    * This function checks first if the interface being added is a Classification interface.
+    * If it is a Classification interface then it checks if the VPMReference already has an EnterpriseExtension.
+    * It attaches an EnterpriseExtension if it is not attached.
+    * It increments a sequence counter unique for that Classification interface
+    * Uses a specific logic to generate the item number (to be defined)
+    * Attaches the item number to the VPMReference.
+    * 
+    * @param  ctx the session context
+    * @param  args trigger arguments
+    * @return      0 success, anything else failure
+    */	
     public int addinterfaceAction (Context ctx, String[] args)
     {
         final String ENTERPRISE_EXTENSION = "EnterpriseExtension";
@@ -220,7 +129,7 @@ public class ${CLASSNAME}
 		int sequenceId = DSEMEDCPEGetUniqueKeyFromStringJPO(ctx, fromRevision);		
                 log(ctx, "sequenceId = " + sequenceId);
 
-		String partNumber = GetClassificationLogic(fromType, fromName, fromRevision, sequenceId);
+		String partNumber = GetEnterprisePartNumber(fromType, fromName, fromRevision, sequenceId);
 	        log(ctx, "partNumber = " + partNumber);
 	
 		//Update Attribute value
@@ -236,30 +145,76 @@ public class ${CLASSNAME}
 		businessObject.setAttributes(ctx, newAttributeList);
 		
 		//3DSpace does not support nested transactions
-		//ctx.commit();
-               
+		//ctx.commit();               
             }
-  
-        } catch (MatrixException e) {
+        } 
+        catch (MatrixException e) 
+        {
             e.printStackTrace();
             return 1;
-        } catch (Exception e) {
-            e.printStackTrace();
-            return 1;
+        } 
+        catch (Exception e) {
+           e.printStackTrace();
+           return 1;
         }
 
 	return 0;
     }
     
+    /**
+    * Gets the final Item Number based on the Classification attributes and on a unique sequence id for the classification interface. 
+    *
+    * Note that this is just an example and changing the logic in this function might be sufficient for most situations
+    * This can be further extended to be more flexible and read from a table or file.
+    *
+    * @param  classType  the Classification type (e.g. General Class)
+    * @param  className  the Classification name in the UI (e.g. Engineering Template)
+    * @param  classRevision the Classification revision
+    * @param  sequenceId a unique sequence Id for the class type, name and revision
+    * @return      the item number string
+    */
+    public String GetEnterprisePartNumber(String classType, String className,  String classRevision, int sequenceId )
+    {
+        final String GENERAL_CLASS = "General Class";
+        final String ENG_TEMPLATE = "Engineering Template";
+
+        if (classType.equals(GENERAL_CLASS))
+        {
+            if (className.equals(ENG_TEMPLATE))
+            {
+                return "GC.ET-" + sequenceId;
+            }
+            else
+            {
+                return "GC-" + sequenceId;
+            }
+        }
+        else
+        {
+            return "-" + sequenceId;
+        }
+    }
+    
+    /**
+    *
+    * Checks if the interface name is a Classification interface.
+    * 
+    * Compares the interface name against the mxsysInterface attribute of all Classification business objects.
+    *
+    * @param  ctx the session context
+    * @param  interfaceName the interface id to check
+    * @return      returns true if the classification interface exists
+    */
     public boolean IsClassificationInterface(Context ctx, String interfaceName)
     {
         String classificationInterfaceQuery = "temp query bus Classification * * where attribute[mxsysInterface]==\"" + interfaceName + "\" select attribute[mxsysInterface] dump |"; //
 
         try
         {
-        log(ctx, classificationInterfaceQuery);
+            log(ctx, classificationInterfaceQuery);
             String classificationInterfaceResult = mql(ctx, classificationInterfaceQuery);
-log(ctx, classificationInterfaceResult);
+
+            log(ctx, classificationInterfaceResult);
             String[] classificationInterfaceResultParser = classificationInterfaceResult.split("\\\\|");
 
             if ((classificationInterfaceResultParser != null) && (classificationInterfaceResultParser.length == 4) &&
@@ -275,19 +230,22 @@ log(ctx, classificationInterfaceResult);
 
         return false;
     }
-
-   // TODO: Check if keyName has spaces in it or any other strange characters before using it
-    // In order to best mimic an "atomic update" and avoid a race condition / concurrency issues this function does the following:
-    // Wraps all code in a transaction (with wait as default)
-    // 1. Checks if the keyName exists in the VPLMCounter (creates if it doesn't exist)
-    // 2. If keyName exists updates the description of the record it wants to use.
-    // 2.1 Once the description is set then the record is locked for the entirety of the transaction.
-    // 3. The function now reads the current value of the counter and increments it.
-    // 4. The transaction is committed (or aborted if there is an error).
-
-    //DISCLAIMER: This function should not be used together with the EKL:GetUniqueKeyFromString function.
-    //It is not clear if there would be conflicts in using both functions on the same keyname so
-    //this function should only modify keyNames that have been created by this function.
+        
+    /**
+    * Increments and returns the value of a named counter.
+    *
+    * Similar in behaviour to the EKL GetUniqueKeyFromString function.
+    *
+    * TODO : Validate keyName before using it. E.g. if it has spaces or any other conflictin strange characters before using it
+    *
+    * DISCLAIMER: This function was not tested together with the EKL GetUniqueKeyFromString function.
+    * It is not clear if there would be conflicts in using both functions on the same keyname so
+    * this function should only modify keyNames that have been created by this function.
+    *
+    * @param  ctx the session context
+    * @param  keyName  the Counter name
+    * @return      the counter value
+    */
     private int DSEMEDCPEGetUniqueKeyFromStringJPO(Context ctx, String keyName) throws Exception {
 
         final String KEY_NAME_PREFIX = "DSEMEDCPE_";
@@ -350,37 +308,21 @@ log(ctx, classificationInterfaceResult);
        return counterValueReturn;
     }
 
-    public String GetClassificationLogic(String classType, String className,  String classRevision, int sequenceId )
+    /**
+    * Checks if a named counter exists.
+    *
+    * @param  ctx  the session context
+    * @param  keyName the name of the counter
+    * @return      true if the counter exists false otherwise
+    */
+    private boolean ExistsCounter(Context ctx, String keyName) throws Exception 
     {
-        final String GENERAL_CLASS = "General Class";
-        final String ENG_TEMPLATE = "Engineering Template";
-
-        if (classType.equals(GENERAL_CLASS))
-        {
-            if (className.equals(ENG_TEMPLATE))
-            {
-                return "GC.ET-" + sequenceId;
-            }
-            else
-            {
-                return "GC-" + sequenceId;
-            }
-        }
-        else
-        {
-            return "-" + sequenceId;
-        }
-    }
-
-    private boolean ExistsCounter(Context ctx, String keyName) throws Exception {
-
-        //Create if it exists
         String checkCounterExistsMQL = "temp query bus VPLMCounter \"PLMCORE/PLMReference##" + keyName + "\" --- select dump |;";
         String checkCounterExistsResponse = mql(ctx, checkCounterExistsMQL);
 
         if (checkCounterExistsResponse == null) return false;
 
-        //Please note the escaping pipe preceded by 4 backslash
+        //Please note the escaping pipe preceded by 4 backslash (linux - in Windows it might be different)
         String[] checkCounterExistsParser = checkCounterExistsResponse.split("\\\\|");
        
         if (!checkCounterExistsParser[0].equals("VPLMCounter")) return false;
@@ -390,16 +332,41 @@ log(ctx, classificationInterfaceResult);
         return true;
     }
 
-    public String mqlNoTrigger(Context ctx, String command) throws Exception
-    {
-        return _mql(ctx, command, true, false, true); 
-    }
-       
+
+    /**
+    * Invokes an MQL command with the default behaviour.
+    *
+    * @param  ctx the session context
+    * @param  command the actual MQL command string
+    * @return      the MQL command output
+    */
     public String mql(Context ctx, String command) throws Exception
     {
 	return _mql(ctx, command, true, false, false);        
     }
     
+    /**
+    * Invokes an MQL command without firing triggers.
+    *
+    * @param  ctx the session context
+    * @param  command the actual MQL command string
+    * @return      the MQL command output
+    */
+    public String mqlNoTrigger(Context ctx, String command) throws Exception
+    {
+        return _mql(ctx, command, true, false, true); 
+    }
+    
+    /**
+    * Invokes an MQL command with controlled behaviour.
+    *
+    * @param  ctx the session context
+    * @param  command the actual MQL command string
+    * @param  allowMultipleOverride 
+    * @param  historyOff if true it doesn't include history 
+    * @param  triggerOff if true it doesn't fire triggers
+    * @return      the MQL command output
+    */
     private String _mql(Context ctx, String command, boolean allowMultipleOverride, boolean historyOff, boolean triggerOff) throws Exception
     {
         MQLCommand mqlCommand = new MQLCommand();
@@ -416,5 +383,45 @@ log(ctx, classificationInterfaceResult);
         }
         return mqlCommandResult;
     }
+    
+
+    
+    /**
+    * Logs a message to the log file.
+    *
+    * @param  ctx the session context
+    * @param  s  message
+    * @return 
+    */
+    protected void log(Context ctx, String message)
+    {
+	if (m_logWriter == null) 
+        {
+	    m_logWriter = InitLogWriter(ctx);
+        }
 	
+	try 
+	{
+	    m_logWriter.write(": " + message);
+	}
+	catch(Exception ex) 
+	{
+	    ex.printStackTrace(System.out);
+	}
+    }
+    
+    /**
+    * Initiates the logger.
+    *
+    * @param  ctx the session context
+    * @return the initiated logger
+    */
+    private MatrixLogWriter InitLogWriter(Context ctx){
+      
+	String strFileName        = "DSEMEDCPE_EIN_Demo.log";
+	String strLogtype         = "";
+	boolean bAllFlag          = false;
+	return new MatrixLogWriter(ctx,strFileName,strLogtype,bAllFlag);
+      
+    }
 }
