@@ -1,2 +1,2 @@
-add program DSEMEDCPE_Classification_EIN java file /home/data/MQL_Classification_EIN/DSEMEDCPEClassificationEINJPO.java execute deferred;
+add program DSEMEDCPE_Classification_EIN java file /MQL_Classification_EIN/DSEMEDCPEClassificationEINJPO.java execute deferred;
 compile program DSEMEDCPE_Classification_EIN;
