@@ -1,0 +1,2 @@
+mod program DSEMEDCPE_Att_Uniqueness file "C:\Users\Support1\Desktop\MQL Attribute Uniqueness\DSEMEDCPEAttUniquenessJPO.java" ;
+compile program DSEMEDCPE_Att_Uniqueness force update;

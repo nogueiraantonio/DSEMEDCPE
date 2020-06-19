@@ -1,0 +1,3 @@
+del businessobject "eService Trigger Program Parameters" DSEMEDCPE_ATU_TypeVPMReferenceModifyattributeCheck DSEMEDCPE;
+#Important: make sure that you run the "./DSEMEDCPE/MQL_Trigger_reset/3DX_R2020x_FD02/typ.VPMReference.trigger_reset.mql"
+#to complete the reset of all VPMReference triggers
