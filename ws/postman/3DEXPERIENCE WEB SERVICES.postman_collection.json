@@ -1,0 +1,1806 @@
+{
+	"info": {
+		"_postman_id": "89894221-c44a-4bb5-ae1c-57a5ef2fd4af",
+		"name": "3DEXPERIENCE WEB SERVICES",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "1. Authentication",
+			"item": [
+				{
+					"name": "1.1 Transient token",
+					"item": [
+						{
+							"name": "1.1.1  - Get Transient Token",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true,
+								"disabledSystemHeaders": {
+									"accept": true,
+									"accept-encoding": true,
+									"connection": true,
+									"user-agent": true
+								}
+							},
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Accept",
+										"type": "text",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "urlencoded",
+									"urlencoded": [],
+									"options": {
+										"urlencoded": {}
+									}
+								},
+								"url": {
+									"raw": "{{service-3DPassport}}/api/authenticated/cas/transient",
+									"host": [
+										"{{service-3DPassport}}"
+									],
+									"path": [
+										"api",
+										"authenticated",
+										"cas",
+										"transient"
+									],
+									"query": [
+										{
+											"key": "service",
+											"value": null,
+											"description": "The service you want to be redirected to with a service ticket after being re-authenticated with the transient token. The format is URL-encoded.",
+											"disabled": true
+										}
+									]
+								},
+								"description": "Returns a transient token. A CAS authentication must have been previously performed.\r\n\r\nThe login for a given 3DEXPERIENCE service contains three steps. The first step is to retrieve a login ticket from the passport. We execute the /login REST web service with action as query parameter. It is a GET verb.\r\n\r\n* [Internal Transient Ticket Documentation](https://dsxdev-online.dsone.3ds.com/doconline/DSInternalExaDoc.htm?show=CAAiamPassport/CAATciamPassportWSTransientTokenToc.htm)\r\n* [Internal Endpoint Reference](https://dsxdev-online.dsone.3ds.com/doconline/DSInternalExaDoc.htm?show=CAAiamPassport/CAAiamPassportAPIGetTransientToken.htm)"
+							},
+							"response": []
+						},
+						{
+							"name": "1.1.2  - Get On-Behalf Transient Token",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true,
+								"disabledSystemHeaders": {
+									"accept": true,
+									"accept-encoding": true,
+									"connection": true,
+									"user-agent": true
+								}
+							},
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Accept",
+										"type": "text",
+										"value": "application/json"
+									},
+									{
+										"key": "DS-Service-Name",
+										"value": "{{ds-service-name}}",
+										"type": "text"
+									},
+									{
+										"key": "DS-Service-Secret",
+										"value": "{{ds-service-secret}}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "urlencoded",
+									"urlencoded": [],
+									"options": {
+										"urlencoded": {}
+									}
+								},
+								"url": {
+									"raw": "{{service-3DPassport}}/api/v2/batch/ticket?identifier={{username}}",
+									"host": [
+										"{{service-3DPassport}}"
+									],
+									"path": [
+										"api",
+										"v2",
+										"batch",
+										"ticket"
+									],
+									"query": [
+										{
+											"key": "identifier",
+											"value": "{{username}}",
+											"description": "The \"on behalf\" person. It can only be a 3DEXPERIENCE platform member, not an administrator. username or email (UTF8 encoded)"
+										},
+										{
+											"key": "service",
+											"value": "",
+											"description": "The service you want to be redirected to with a service ticket after being re-authenticated with the transient token. The format is URL-encoded.",
+											"disabled": true
+										}
+									]
+								},
+								"description": "Returns a transient token. A CAS authentication must have been previously performed.\r\n\r\nThe login for a given 3DEXPERIENCE service contains three steps. The first step is to retrieve a login ticket from the passport. We execute the /login REST web service with action as query parameter. It is a GET verb.\r\n\r\n* [Internal Transient Ticket Documentation](https://dsxdev-online.dsone.3ds.com/doconline/DSInternalExaDoc.htm?show=CAAiamPassport/CAATciamPassportWSTransientTokenToc.htm)\r\n* [Internal Endpoint Reference](https://dsxdev-online.dsone.3ds.com/doconline/DSInternalExaDoc.htm?show=CAAiamPassport/CAAiamPassportAPIGetTransientTokenBehalf.htm)"
+							},
+							"response": []
+						},
+						{
+							"name": "1.1.3  - CAS Authentication with Transient Token",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true,
+								"disabledSystemHeaders": {
+									"accept": true,
+									"accept-encoding": true,
+									"connection": true,
+									"user-agent": true
+								}
+							},
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Accept",
+										"type": "text",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "urlencoded",
+									"urlencoded": [],
+									"options": {
+										"urlencoded": {}
+									}
+								},
+								"url": {
+									"raw": "{{service-3DPassport}}/api/login/cas/transient?tgt={{transient-token}}",
+									"host": [
+										"{{service-3DPassport}}"
+									],
+									"path": [
+										"api",
+										"login",
+										"cas",
+										"transient"
+									],
+									"query": [
+										{
+											"key": "tgt",
+											"value": "{{transient-token}}",
+											"description": "The transient token."
+										},
+										{
+											"key": "service",
+											"value": "",
+											"description": "The service you want to be redirected to with a service ticket after being re-authenticated with the transient token. The format is URL-encoded.",
+											"disabled": true
+										}
+									]
+								},
+								"description": "Authenticates a user to the 3DPassport CAS server with a transient token, and optionally can redirect to a provided service URL too.\r\n\r\n* [Internal Transient Ticket Documentation](https://dsxdev-online.dsone.3ds.com/doconline/DSInternalExaDoc.htm?show=CAAiamPassport/CAATciamPassportWSTransientTokenToc.htm)\r\n* [Internal Endpoint Reference](https://dsxdev-online.dsone.3ds.com/doconline/DSInternalExaDoc.htm?show=CAAiamPassport/CAAiamPassportAPILoginTransientToken.htm)"
+							},
+							"response": []
+						}
+					],
+					"protocolProfileBehavior": {},
+					"_postman_isSubFolder": true
+				},
+				{
+					"name": "1 - CAS Login Ticket",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "6f657cd1-4020-48dd-af81-3b9ca7d26dbb",
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"id": "926ec673-5873-4edb-b0e4-376d15ed57b2",
+								"exec": [
+									"pm.test(\"Set login ticket variable\", function () {\r",
+									"    if (pm.response.to.have.status(200))\r",
+									"    {\r",
+									"        var jsonData = pm.response.json();\r",
+									"        var loginTicket = jsonData.lt\r",
+									"        pm.environment.set(\"login-ticket\", loginTicket);\r",
+									"    }\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disabledSystemHeaders": {
+							"user-agent": true,
+							"connection": true,
+							"accept-encoding": true,
+							"accept": true
+						}
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{service-3DPassport}}/login?action=get_auth_params",
+							"host": [
+								"{{service-3DPassport}}"
+							],
+							"path": [
+								"login"
+							],
+							"query": [
+								{
+									"key": "action",
+									"value": "get_auth_params"
+								}
+							]
+						},
+						"description": "The login for a given 3DEXPERIENCE service contains three steps. The first step is to retrieve a login ticket from the passport. We execute the /login REST web service with action as query parameter. It is a GET verb.\r\n\r\n* [Internal Login Documentation](https://dsxdev-online.dsone.3ds.com/doconline/DSInternalExaDoc.htm?show=CAAiamPassport/CAAiamPassportLoginHowTo.htm)\r\n* [Internal Endpoint Reference](https://dsxdev-online.dsone.3ds.com/doconline/DSInternalExaDoc.htm?show=CAAiamPassport/CAAiamPassportAPILoginTicket.htm)"
+					},
+					"response": []
+				},
+				{
+					"name": "2  - CAS Authentication",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/x-www-form-urlencoded;charset=UTF-8"
+							},
+							{
+								"key": "Accept",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "lt",
+									"value": "{{login-ticket}}",
+									"type": "text"
+								},
+								{
+									"key": "username",
+									"value": "{{username}}",
+									"type": "text"
+								},
+								{
+									"key": "password",
+									"value": "{{password}}",
+									"type": "text"
+								},
+								{
+									"key": "rememberMe",
+									"value": "no",
+									"type": "text"
+								}
+							],
+							"options": {
+								"urlencoded": {}
+							}
+						},
+						"url": {
+							"raw": "{{service-3DPassport}}/login",
+							"host": [
+								"{{service-3DPassport}}"
+							],
+							"path": [
+								"login"
+							]
+						},
+						"description": "Authenticates a user to the 3D Passport CAS server, and optionally can redirect to a provided service URL too.\r\nThe call must be performed with the same JSESSIONID (stored in cookies) as the one generated by a previous login ticket retrieval call.\r\n\r\n* [Internal Login Documentation](https://dsxdev-online.dsone.3ds.com/doconline/DSInternalExaDoc.htm?show=CAAiamPassport/CAAiamPassportLoginHowTo.htm)\r\n* [Internal Endpoint Reference](https://dsxdev-online.dsone.3ds.com/doconline/DSInternalExaDoc.htm?show=CAAiamPassport/CAAiamPassportAPIAuthentication.htm)"
+					},
+					"response": []
+				},
+				{
+					"name": "2  - [alt] CAS Authentication with 3DCompass Service redirection",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/x-www-form-urlencoded;charset=UTF-8"
+							},
+							{
+								"key": "Accept",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "lt",
+									"value": "{{login-ticket}}",
+									"type": "text"
+								},
+								{
+									"key": "username",
+									"value": "{{username}}",
+									"type": "text"
+								},
+								{
+									"key": "password",
+									"value": "{{password}}",
+									"type": "text"
+								},
+								{
+									"key": "rememberMe",
+									"value": "no",
+									"type": "text"
+								}
+							],
+							"options": {
+								"urlencoded": {}
+							}
+						},
+						"url": {
+							"raw": "{{service-3DPassport}}/login?service={{service-3DCompass}}/resources/AppsMngt/api/pull/self",
+							"host": [
+								"{{service-3DPassport}}"
+							],
+							"path": [
+								"login"
+							],
+							"query": [
+								{
+									"key": "service",
+									"value": "{{service-3DCompass}}/resources/AppsMngt/api/pull/self"
+								}
+							]
+						},
+						"description": "Authenticates a user to the 3D Passport CAS server, and optionally can redirect to a provided service URL too.\r\nThe call must be performed with the same JSESSIONID (stored in cookies) as the one generated by a previous login ticket retrieval call.\r\n\r\n* [Internal Login Documentation](https://dsxdev-online.dsone.3ds.com/doconline/DSInternalExaDoc.htm?show=CAAiamPassport/CAAiamPassportLoginHowTo.htm)\r\n* [Internal Endpoint Reference](https://dsxdev-online.dsone.3ds.com/doconline/DSInternalExaDoc.htm?show=CAAiamPassport/CAAiamPassportAPIAuthentication.htm)"
+					},
+					"response": []
+				},
+				{
+					"name": "3 - [opt] CAS Login",
+					"protocolProfileBehavior": {
+						"disabledSystemHeaders": {
+							"accept": true,
+							"accept-encoding": true,
+							"connection": true,
+							"content-type": true,
+							"user-agent": true
+						}
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"url": {
+							"raw": "{{service-3DPassport}}/login",
+							"host": [
+								"{{service-3DPassport}}"
+							],
+							"path": [
+								"login"
+							]
+						},
+						"description": "Performs single sign on by generating a service ticket for a provided service URL\r\n\r\n* [Internal Login Documentation](https://dsxdev-online.dsone.3ds.com/doconline/DSInternalExaDoc.htm?show=CAAiamPassport/CAAiamPassportLoginHowTo.htm)\r\n* [Internal Endpoint Reference](https://dsxdev-online.dsone.3ds.com/doconline/DSInternalExaDoc.htm?show=CAAiamPassport/CAAiamPassportAPILogin.htm)"
+					},
+					"response": []
+				},
+				{
+					"name": "3 - [opt] CAS Login  with 3DCompass Service redirection",
+					"protocolProfileBehavior": {
+						"disabledSystemHeaders": {
+							"accept": true,
+							"connection": true,
+							"content-type": true,
+							"user-agent": true,
+							"accept-encoding": true
+						}
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"url": {
+							"raw": "{{service-3DPassport}}/login?service={{service-3DCompass}}/resources/AppsMngt/api/pull/self",
+							"host": [
+								"{{service-3DPassport}}"
+							],
+							"path": [
+								"login"
+							],
+							"query": [
+								{
+									"key": "service",
+									"value": "{{service-3DCompass}}/resources/AppsMngt/api/pull/self"
+								}
+							]
+						},
+						"description": "Performs single sign on by generating a service ticket for a provided service URL\r\n\r\n* [Internal Login Documentation](https://dsxdev-online.dsone.3ds.com/doconline/DSInternalExaDoc.htm?show=CAAiamPassport/CAAiamPassportLoginHowTo.htm)\r\n* [Internal Endpoint Reference](https://dsxdev-online.dsone.3ds.com/doconline/DSInternalExaDoc.htm?show=CAAiamPassport/CAAiamPassportAPILogin.htm)"
+					},
+					"response": []
+				},
+				{
+					"name": "3 - [opt] CAS Login with 3DSpace Service redirection",
+					"protocolProfileBehavior": {
+						"disabledSystemHeaders": {
+							"accept": true,
+							"accept-encoding": true,
+							"connection": true,
+							"content-type": true,
+							"user-agent": true
+						}
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"type": "text",
+								"value": "application/x-www-form-urlencoded;charset=UTF8"
+							},
+							{
+								"key": "Accept",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"url": {
+							"raw": "{{service-3DPassport}}/login?service={{service-3DSpace}}/resources/modeler/pno/person?current=true%26tenant={{tenantID}}%26select=collabspaces%26select=preferredcredentials",
+							"host": [
+								"{{service-3DPassport}}"
+							],
+							"path": [
+								"login"
+							],
+							"query": [
+								{
+									"key": "service",
+									"value": "{{service-3DSpace}}/resources/modeler/pno/person?current=true%26tenant={{tenantID}}%26select=collabspaces%26select=preferredcredentials"
+								}
+							]
+						},
+						"description": "Performs single sign on by generating a service ticket for a provided service URL\r\n\r\n* [Internal Login Documentation](https://dsxdev-online.dsone.3ds.com/doconline/DSInternalExaDoc.htm?show=CAAiamPassport/CAAiamPassportLoginHowTo.htm)\r\n* [Internal Endpoint Reference](https://dsxdev-online.dsone.3ds.com/doconline/DSInternalExaDoc.htm?show=CAAiamPassport/CAAiamPassportAPILogin.htm)"
+					},
+					"response": []
+				},
+				{
+					"name": "3 - [opt] CAS Login with 3DSwym Service redirection",
+					"protocolProfileBehavior": {
+						"disabledSystemHeaders": {
+							"accept": true,
+							"accept-encoding": true,
+							"connection": true,
+							"content-type": true,
+							"user-agent": true
+						}
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"type": "text",
+								"value": "application/x-www-form-urlencoded;charset=UTF8"
+							},
+							{
+								"key": "Accept",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"url": {
+							"raw": "{{service-3DPassport}}/login?service={{service-3DSwym}}/...",
+							"host": [
+								"{{service-3DPassport}}"
+							],
+							"path": [
+								"login"
+							],
+							"query": [
+								{
+									"key": "service",
+									"value": "{{service-3DSwym}}/..."
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "4 - Logout",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "457ea416-1e67-4b76-b31b-c7a070aab546",
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"id": "97f2af91-4030-441d-9fb2-bf89775c47cd",
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disabledSystemHeaders": {
+							"accept-encoding": true,
+							"connection": true,
+							"accept": true,
+							"user-agent": true
+						}
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{service-3DPassport}}/logout",
+							"host": [
+								"{{service-3DPassport}}"
+							],
+							"path": [
+								"logout"
+							]
+						},
+						"description": "The logout is unique for the session. We execute the /logout REST web service. It is a GET verb.\r\n\r\n* [Internal Login Documentation](https://dsxdev-online.dsone.3ds.com/doconline/DSInternalExaDoc.htm?show=CAAiamPassport/CAAiamPassportLoginHowTo.htm)\r\n* [Internal Endpoint Reference](https://dsxdev-online.dsone.3ds.com/doconline/English/CAAiamPassport/CAAiamPassportAPILogout.htm)"
+					},
+					"response": []
+				}
+			],
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "ca9537df-e4ad-48ec-82e2-b946c8b4bc71",
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"id": "f9c630ef-340d-4385-afcd-0b3df571686d",
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				}
+			],
+			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "2. User Tenant Access",
+			"item": [
+				{
+					"name": "2.1 - (3DCompass) Retrieving Platform Service URLs",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"description": "crypted hash value.\nThe value is = sha1(\"7F7316C4CC137143\"+platform",
+								"key": "X-3DCOMPASS",
+								"type": "text",
+								"value": "43a10577db1f1796dd23ac1cf933a0d4ee645a49"
+							}
+						],
+						"url": {
+							"raw": "{{service-3DCompass}}/resources/AppsMngt/api/v1/public/services/platform?platform=R1132100982379",
+							"host": [
+								"{{service-3DCompass}}"
+							],
+							"path": [
+								"resources",
+								"AppsMngt",
+								"api",
+								"v1",
+								"public",
+								"services",
+								"platform"
+							],
+							"query": [
+								{
+									"key": "platform",
+									"value": "R1132100982379",
+									"description": "Platform instance name."
+								}
+							]
+						},
+						"description": "Retrieves for a given platform all the service URLs. This API is not CAS protected. The authentication is based on a crypted hash key sent along the request and checked service side.  The article Retrieving Platform Service URLs explains how to compute this value\r\n\r\n* [Internal Retrieving Platform Service URLs Documentation](https://dsxdev-online.dsone.3ds.com/doconline/DSInternalExaDoc.htm?show=CAA3DCompassRESTPro/CAAi3DXCompassRetrievingServiceURL.htm)\r\n* [Internal Endpoint Reference](https://dsxdev-online.dsone.3ds.com/doconline/DSInternalExaDoc.htm?show=CAA3DCompassRESTPro/CAAi3DXCompassWSQrServiceURL.htm)"
+					},
+					"response": []
+				},
+				{
+					"name": "2.2 - (3DCompass) Get User Tenant Access",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{service-3DCompass}}/resources/AppsMngt/api/pull/self",
+							"host": [
+								"{{service-3DCompass}}"
+							],
+							"path": [
+								"resources",
+								"AppsMngt",
+								"api",
+								"pull",
+								"self"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "2.3 - (3DSpace) Tenant User Information (Get Me)",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "1852718b-7d18-46d4-b9d7-86afd5864ef7",
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"id": "d3dd2cd5-f980-4b55-96c3-955c629907dd",
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true,
+						"disabledSystemHeaders": {
+							"user-agent": true,
+							"accept-encoding": true,
+							"accept": true,
+							"connection": true
+						}
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"items\": [\r\n        {\r\n            \"attributes\": {\r\n                \"title\": \"My WS Part name\",\r\n                \"description\": \"My WS Part description\",\r\n                \"dsxcad:xCADAttributes\": {\r\n                    \"cadorigin\": \"CATIA V5\"\r\n                },\r\n                \"dseng:EnterpriseReference\": {\r\n                    \"partNumber\": \"1234..\"\r\n                },\r\n                \"dsxcad:AuthoringFile\": {\r\n                    \"filename\": \"Part1.CATPart\",\r\n                    \"receipt\": \"XXX\",\r\n                    \"MD5\": \"a40c2851cdd1a737c7ea6591dfebcf0f\"\r\n                },\r\n                \"dseno:EnterpriseAttributes\": {\r\n                    \"Attribute DB Name\": \"Attribute DB Value\"\r\n                },\r\n                \"dsxcad:VisualizationFile\": {\r\n                    \"filename\": \"Part1.cgr\",\r\n                    \"receipt\": \"XXX\",\r\n                    \"MD5\": \"a40c2851cdd1a737c7ea6591dfebcf0f\"\r\n                }\r\n            }\r\n        }\r\n    ]\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{service-3DSpace}}/resources/modeler/pno/person?current=true&tenant={{tenant}}&select=firstname&select=lastname&select=email&select=address&select=phone&select=isactive&select=company&select=collabspaces&select=preferredcredentials",
+							"host": [
+								"{{service-3DSpace}}"
+							],
+							"path": [
+								"resources",
+								"modeler",
+								"pno",
+								"person"
+							],
+							"query": [
+								{
+									"key": "current",
+									"value": "true",
+									"description": "To return the information for the current connected person."
+								},
+								{
+									"key": "tenant",
+									"value": "{{tenant}}"
+								},
+								{
+									"key": "select",
+									"value": "firstname"
+								},
+								{
+									"key": "select",
+									"value": "lastname"
+								},
+								{
+									"key": "select",
+									"value": "email"
+								},
+								{
+									"key": "select",
+									"value": "address"
+								},
+								{
+									"key": "select",
+									"value": "phone"
+								},
+								{
+									"key": "select",
+									"value": "isactive"
+								},
+								{
+									"key": "select",
+									"value": "company"
+								},
+								{
+									"key": "select",
+									"value": "collabspaces"
+								},
+								{
+									"key": "select",
+									"value": "preferredcredentials"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "3. 3DSpace",
+			"item": [
+				{
+					"name": "3.1 Get CSRF Token",
+					"item": [
+						{
+							"name": "3.1.1 - Get CSRF token",
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"id": "faff0637-6ad8-44cd-ab8c-41b513548dfa",
+										"exec": [
+											""
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "test",
+									"script": {
+										"id": "ecbb5dac-b794-4086-8577-170863b5eef6",
+										"exec": [
+											"pm.test(\"Set ENO_CSRF_TOKEN variable\", function () {\r",
+											"    if (pm.response.to.have.status(200))\r",
+											"    {\r",
+											"        var jsonData = pm.response.json();\r",
+											"        var statusCode = jsonData.statusCode;\r",
+											"        if (statusCode==\"200\")\r",
+											"        {\r",
+											"            var eno_csrf_token = jsonData.csrf.value;\r",
+											"            pm.environment.set(\"eno-csrf-token\", eno_csrf_token);\r",
+											"        }\r",
+											"    }\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"protocolProfileBehavior": {
+								"disabledSystemHeaders": {
+									"user-agent": true,
+									"accept": true
+								}
+							},
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{service-3DSpace}}/resources/v1/application/CSRF",
+									"host": [
+										"{{service-3DSpace}}"
+									],
+									"path": [
+										"resources",
+										"v1",
+										"application",
+										"CSRF"
+									]
+								},
+								"description": "Generates a CSRF token valid for 6W and PN0 web services whose the verb is PUT, PATCH, POST or DELETE.\r\n\r\n* [Internal CSRF Documentation](https://dsxdev-online.dsone.3ds.com/doconline/DSInternalExaDoc.htm?show=CAARwsServiceGuides/CAARwsServiceCSRF.htm)\r\n* [Internal Endpoint Reference](https://dsxdev-online.dsone.3ds.com/doconline/DSInternalExaDoc.htm?show=CAA3DSpaceREST/CAA3DSpaceWSQrCSRFToken.htm)"
+							},
+							"response": []
+						}
+					],
+					"protocolProfileBehavior": {},
+					"_postman_isSubFolder": true
+				},
+				{
+					"name": "3.2 Engineering",
+					"item": [
+						{
+							"name": "3.2.1- Create Engineering Item",
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"id": "d0b1c96c-4a81-4883-80b0-308aa629a82d",
+										"exec": [
+											"let company = pm.environment.get('company');\r",
+											"let username = pm.environment.get('username');\r",
+											"let role = pm.environment.get('role');\r",
+											"let collaborativespace = pm.environment.get('collaborative-space');\r",
+											"let securitycontext = role + \".\" + company + \".\" + collaborativespace;\r",
+											"pm.environment.set(\"security-context\", securitycontext);\r",
+											""
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "test",
+									"script": {
+										"id": "aa378289-8efd-4278-8ff2-63577f6ebf79",
+										"exec": [
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Accept",
+										"type": "text",
+										"value": "application/json"
+									},
+									{
+										"key": "Content-Type",
+										"type": "text",
+										"value": "application/json"
+									},
+									{
+										"key": "SecurityContext",
+										"type": "text",
+										"value": "{{security-context}}"
+									},
+									{
+										"key": "ENO_CSRF_TOKEN",
+										"type": "text",
+										"value": "{{eno-csrf-token}}"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"items\": [\r\n    {\r\n      \"attributes\": {\r\n        \"title\": \"My name\",\r\n        \"description\": \"My description\",\r\n        \"dseng:EnterpriseReference\": {\r\n          \"partNumber\": \"1234..\"\r\n        },\r\n        \"dseno:EnterpriseAttributes\": {\r\n          \"Attribute DB Name\": \"Attribute DB Value\"\r\n        },\r\n        \"dscfg:Configured\": {}\r\n      }\r\n    }\r\n  ]\r\n}",
+									"options": {
+										"raw": {}
+									}
+								},
+								"url": {
+									"raw": "{{service-3DSpace}}/resources/v1/modeler/dseng/dseng:EngItem?$mask=dsmveng:EngItemMask.Details",
+									"host": [
+										"{{service-3DSpace}}"
+									],
+									"path": [
+										"resources",
+										"v1",
+										"modeler",
+										"dseng",
+										"dseng:EngItem"
+									],
+									"query": [
+										{
+											"key": "$mask",
+											"value": "dsmveng:EngItemMask.Details",
+											"description": "dskern:Mask.Default, dsmveng:EngItemMask.Common, dsmveng:EngItemMask.Details, dsmveng:EngItemMask.Config"
+										},
+										{
+											"key": "$fields",
+											"value": null,
+											"description": "We can add several fields with comma(,) separator to get in the response.\n\nAvailable values : dsmvcfg:attribute.isConfigured",
+											"disabled": true
+										}
+									]
+								},
+								"description": "Creates engineering items.\r\n\r\n* [Internal 3DSpace Engineering Documentation](https://dsxdev-online.dsone.3ds.com/doconline/DSInternalExaDoc.htm?show=CAAEngineeringWS/CAAEngineeringWSTaOverview.htm)\r\n\r\n* [Internal 3DSpace Engineering Reference](https://dsxdev-online.dsone.3ds.com/doconline/DSInternalExaDoc.htm?show=CAAEngineeringWS/CAAEngineeringWSAPI.htm)"
+							},
+							"response": []
+						},
+						{
+							"name": "3.2.2 - Get Engineering Item details",
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"id": "530f2f57-663c-42f0-8046-d7076a042d5d",
+										"exec": [
+											"let company = pm.environment.get('company');\r",
+											"let username = pm.environment.get('username');\r",
+											"let role = pm.environment.get('role');\r",
+											"let collaborativespace = pm.environment.get('collaborative-space');\r",
+											"let securitycontext = role + \".\" + company + \".\" + collaborativespace;\r",
+											"pm.environment.set(\"security-context\", securitycontext);"
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "test",
+									"script": {
+										"id": "6c5acb83-617d-42aa-9c62-65b6e8cba78d",
+										"exec": [
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Accept",
+										"type": "text",
+										"value": "application/json",
+										"disabled": true
+									},
+									{
+										"key": "Content-Type",
+										"type": "text",
+										"value": "application/json"
+									},
+									{
+										"key": "SecurityContext",
+										"type": "text",
+										"value": "{{security-context}}"
+									}
+								],
+								"url": {
+									"raw": "{{service-3DSpace}}/resources/v1/modeler/dseng/dseng:EngItem/{{engItem}}",
+									"host": [
+										"{{service-3DSpace}}"
+									],
+									"path": [
+										"resources",
+										"v1",
+										"modeler",
+										"dseng",
+										"dseng:EngItem",
+										"{{engItem}}"
+									],
+									"query": [
+										{
+											"key": "tenant",
+											"value": "{{tenantId}}",
+											"disabled": true
+										},
+										{
+											"key": "$searchStr",
+											"value": "prd-61590310-00000022",
+											"disabled": true
+										},
+										{
+											"key": "$mask",
+											"value": "dsmveng:EngItemMask.Details",
+											"description": "dskern:Mask.Default, dsmveng:EngItemMask.Common, dsmveng:EngItemMask.Details, dsmveng:EngItemMask.Config",
+											"disabled": true
+										}
+									]
+								},
+								"description": "Gets a Engineering Item.\r\n\r\n* [Internal 3DSpace Engineering Documentation](https://dsxdev-online.dsone.3ds.com/doconline/DSInternalExaDoc.htm?show=CAAEngineeringWS/CAAEngineeringWSTaOverview.htm)\r\n\r\n* [Internal 3DSpace Engineering Reference](https://dsxdev-online.dsone.3ds.com/doconline/DSInternalExaDoc.htm?show=CAAEngineeringWS/CAAEngineeringWSAPI.htm)"
+							},
+							"response": []
+						},
+						{
+							"name": "3.2.3- Edit Engineering Item",
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"id": "aeccc431-74fb-4a96-8d96-ff5f91a32a57",
+										"exec": [
+											"let companyname = pm.environment.get('company');\r",
+											"let username = pm.environment.get('username');\r",
+											"let role = pm.environment.get('role');\r",
+											"let collaborativespace = pm.environment.get('collaborative-space');\r",
+											"let securitycontext = role + \".\" + companyname + \".\" + collaborativespace;\r",
+											"pm.environment.set(\"security-context\", securitycontext);\r",
+											""
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "test",
+									"script": {
+										"id": "daa64263-a460-4ab1-a64b-4a67b274601b",
+										"exec": [
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "PATCH",
+								"header": [
+									{
+										"key": "Accept",
+										"type": "text",
+										"value": "application/json",
+										"disabled": true
+									},
+									{
+										"key": "Content-Type",
+										"type": "text",
+										"value": "application/json"
+									},
+									{
+										"key": "SecurityContext",
+										"type": "text",
+										"value": "{{security-context}}"
+									},
+									{
+										"key": "ENO_CSRF_TOKEN",
+										"type": "text",
+										"value": "{{eno-csrf-token}}"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"dseno:EnterpriseAttributes\": {\r\n    \"Drawing\": \"Attempt to update a custom string\"\r\n  }\r\n}",
+									"options": {
+										"raw": {}
+									}
+								},
+								"url": {
+									"raw": "{{service-3DSpace}}/resources/v1/modeler/dseng/dseng:EngItem/{{engItem}}?$mask=dsmveng:EngItemMask.Details",
+									"host": [
+										"{{service-3DSpace}}"
+									],
+									"path": [
+										"resources",
+										"v1",
+										"modeler",
+										"dseng",
+										"dseng:EngItem",
+										"{{engItem}}"
+									],
+									"query": [
+										{
+											"key": "$mask",
+											"value": "dsmveng:EngItemMask.Details",
+											"description": "dskern:Mask.Default, dsmveng:EngItemMask.Common, dsmveng:EngItemMask.Details, dsmveng:EngItemMask.Config"
+										},
+										{
+											"key": "$fields",
+											"value": null,
+											"description": "We can add several fields with comma(,) separator to get in the response.\n\nAvailable values : dsmvcfg:attribute.isConfigured",
+											"disabled": true
+										}
+									]
+								},
+								"description": "Modifies the Engineering Item attributes\r\n\r\n* [Internal 3DSpace Engineering Documentation](https://dsxdev-online.dsone.3ds.com/doconline/DSInternalExaDoc.htm?show=CAAEngineeringWS/CAAEngineeringWSTaOverview.htm)\r\n\r\n* [Internal 3DSpace Engineering Reference](https://dsxdev-online.dsone.3ds.com/doconline/DSInternalExaDoc.htm?show=CAAEngineeringWS/CAAEngineeringWSAPI.htm)"
+							},
+							"response": []
+						},
+						{
+							"name": "3.2.4 - Search Engineering Items",
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"id": "3b9e6d15-6e3b-4130-9f5f-0e5303b0f08a",
+										"exec": [
+											"let company = pm.environment.get('company');\r",
+											"let username = pm.environment.get('username');\r",
+											"let role = pm.environment.get('role');\r",
+											"let collaborativespace = pm.environment.get('collaborative-space');\r",
+											"let securitycontext = role + \".\" + company + \".\" + collaborativespace;\r",
+											"pm.environment.set(\"security-context\", securitycontext);"
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "test",
+									"script": {
+										"id": "eb681150-fb2a-4ad7-bb37-c94b6cbb56f8",
+										"exec": [
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Accept",
+										"type": "text",
+										"value": "application/json",
+										"disabled": true
+									},
+									{
+										"key": "Content-Type",
+										"type": "text",
+										"value": "application/json"
+									},
+									{
+										"key": "SecurityContext",
+										"type": "text",
+										"value": "{{security-context}}"
+									}
+								],
+								"url": {
+									"raw": "{{service-3DSpace}}/resources/v1/modeler/dseng/dseng:EngItem/search?$searchStr={{search-string}}&$mask=dsmveng:EngItemMask.Details",
+									"host": [
+										"{{service-3DSpace}}"
+									],
+									"path": [
+										"resources",
+										"v1",
+										"modeler",
+										"dseng",
+										"dseng:EngItem",
+										"search"
+									],
+									"query": [
+										{
+											"key": "tenant",
+											"value": "{{tenant}}",
+											"disabled": true
+										},
+										{
+											"key": "$searchStr",
+											"value": "{{search-string}}"
+										},
+										{
+											"key": "$mask",
+											"value": "dsmveng:EngItemMask.Details",
+											"description": "dskern:Mask.Default, dsmveng:EngItemMask.Common, dsmveng:EngItemMask.Details"
+										}
+									]
+								},
+								"description": "Gets a list of Engineering Items.\r\n\r\n* [Internal 3DSpace Engineering Documentation](https://dsxdev-online.dsone.3ds.com/doconline/DSInternalExaDoc.htm?show=CAAEngineeringWS/CAAEngineeringWSTaOverview.htm)\r\n\r\n* [Internal 3DSpace Engineering Reference](https://dsxdev-online.dsone.3ds.com/doconline/DSInternalExaDoc.htm?show=CAAEngineeringWS/CAAEngineeringWSAPI.htm)"
+							},
+							"response": []
+						},
+						{
+							"name": "3.2.5 - Create Engineering Instance",
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"id": "e1155293-3693-48fa-9fed-8931bc3c53c5",
+										"exec": [
+											"let company = pm.environment.get('company');\r",
+											"let username = pm.environment.get('username');\r",
+											"let role = pm.environment.get('role');\r",
+											"let collaborativespace = pm.environment.get('collaborative-space');\r",
+											"let securitycontext = role + \".\" + company + \".\" + collaborativespace;\r",
+											"pm.environment.set(\"security-context\", securitycontext);\r",
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "SecurityContext",
+										"value": "{{security-context}}",
+										"type": "text"
+									},
+									{
+										"key": "ENO_CSRF_TOKEN",
+										"value": "{{eno-csrf-token}}",
+										"type": "text"
+									},
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"instances\": [\r\n    {\r\n      \"referencedObject\": {\r\n        \"source\": \"$3DSpace\",\r\n        \"type\": \"VPMReference\",\r\n        \"id\": \"{{refEngItemID}}\",\r\n        \"relativePath\": \"resource/v1/dseng/dseng:EngItem/{{refEngItemID}}\"\r\n      },\r\n      \"attributes\": {\r\n        \"name\": \"My name\",\r\n        \"description\": \"My description\",\r\n        \"dscfg:Filterable\": {}\r\n      }\r\n    }\r\n  ]\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{service-3DSpace}}/resources/v1/modeler/dseng/dseng:EngItem/{{parent-engItem}}/dseng:EngInstance?$mask=dsmveng:EngInstanceMask.Details",
+									"host": [
+										"{{service-3DSpace}}"
+									],
+									"path": [
+										"resources",
+										"v1",
+										"modeler",
+										"dseng",
+										"dseng:EngItem",
+										"{{parent-engItem}}",
+										"dseng:EngInstance"
+									],
+									"query": [
+										{
+											"key": "$mask",
+											"value": "dsmveng:EngInstanceMask.Details",
+											"description": "dskern:Mask.Default, dsmveng:EngInstanceMask.Details, dsmveng:EngItemMask.Instance, dsmveng:EngInstanceMask.Filterable"
+										}
+									]
+								},
+								"description": "Create engineering item Instance to an Engineering Item.\r\n\r\n* [Internal 3DSpace Engineering Documentation](https://dsxdev-online.dsone.3ds.com/doconline/DSInternalExaDoc.htm?show=CAAEngineeringWS/CAAEngineeringWSTaOverview.htm)\r\n\r\n* [Internal 3DSpace Engineering Reference](https://dsxdev-online.dsone.3ds.com/doconline/DSInternalExaDoc.htm?show=CAAEngineeringWS/CAAEngineeringWSAPI.htm)"
+							},
+							"response": []
+						},
+						{
+							"name": "3.2.6 - Get Engineering Item Instances",
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"id": "f76d2df5-6ddc-4ad2-9630-f18ec1149ec8",
+										"exec": [
+											"let company = pm.environment.get('company');\r",
+											"let username = pm.environment.get('username');\r",
+											"let role = pm.environment.get('role');\r",
+											"let collaborativespace = pm.environment.get('collaborative-space');\r",
+											"let securitycontext = role + \".\" + company + \".\" + collaborativespace;\r",
+											"pm.environment.set(\"security-context\", securitycontext);\r",
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "SecurityContext",
+										"type": "text",
+										"value": "{{security-context}}"
+									},
+									{
+										"key": "Content-Type",
+										"type": "text",
+										"value": "application/json"
+									}
+								],
+								"url": {
+									"raw": "{{service-3DSpace}}/resources/v1/modeler/dseng/dseng:EngItem/{{parent-engItem}}/dseng:EngInstance?$mask=dsmveng:EngInstanceMask.Details",
+									"host": [
+										"{{service-3DSpace}}"
+									],
+									"path": [
+										"resources",
+										"v1",
+										"modeler",
+										"dseng",
+										"dseng:EngItem",
+										"{{parent-engItem}}",
+										"dseng:EngInstance"
+									],
+									"query": [
+										{
+											"key": "$mask",
+											"value": "dsmveng:EngInstanceMask.Details",
+											"description": "dskern:Mask.Default, dsmveng:EngInstanceMask.Details, dsmveng:EngItemMask.Instance, dsmveng:EngInstanceMask.Filterable"
+										}
+									]
+								},
+								"description": "Gets all the Engineering Item Instances.\r\n\r\n\r\n* [Internal 3DSpace Engineering Documentation](https://dsxdev-online.dsone.3ds.com/doconline/DSInternalExaDoc.htm?show=CAAEngineeringWS/CAAEngineeringWSTaOverview.htm)\r\n\r\n* [Internal 3DSpace Engineering Reference](https://dsxdev-online.dsone.3ds.com/doconline/DSInternalExaDoc.htm?show=CAAEngineeringWS/CAAEngineeringWSAPI.htm)"
+							},
+							"response": []
+						},
+						{
+							"name": "3.2.7  - Detach Engineering instance",
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"id": "185dd8e3-ce90-4d7c-847e-9b845b37235b",
+										"exec": [
+											"let company = pm.environment.get('company');\r",
+											"let username = pm.environment.get('username');\r",
+											"let role = pm.environment.get('role');\r",
+											"let collaborativespace = pm.environment.get('collaborative-space');\r",
+											"let securitycontext = role + \".\" + company + \".\" + collaborativespace;\r",
+											"pm.environment.set(\"security-context\", securitycontext);"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"type": "text",
+										"value": "application/json"
+									},
+									{
+										"key": "SecurityContext",
+										"type": "text",
+										"value": "{{security-context}}"
+									},
+									{
+										"key": "ENO_CSRF_TOKEN",
+										"type": "text",
+										"value": "{{eno-csrf-token}}"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "[\r\n  \"EngInstID1\",\r\n  \"EngInstID2\",\r\n  \"EngInstID3\",\r\n  \"...\"\r\n]",
+									"options": {
+										"raw": {}
+									}
+								},
+								"url": {
+									"raw": "{{service-3DSpace}}/resources/v1/modeler/dseng/invoke/dseng:detachEngInstances",
+									"host": [
+										"{{service-3DSpace}}"
+									],
+									"path": [
+										"resources",
+										"v1",
+										"modeler",
+										"dseng",
+										"invoke",
+										"dseng:detachEngInstances"
+									]
+								},
+								"description": "Detach engineering item instances\r\n\r\n* [Internal 3DSpace Engineering Documentation](https://dsxdev-online.dsone.3ds.com/doconline/DSInternalExaDoc.htm?show=CAAEngineeringWS/CAAEngineeringWSTaOverview.htm)\r\n\r\n* [Internal 3DSpace Engineering Reference](https://dsxdev-online.dsone.3ds.com/doconline/DSInternalExaDoc.htm?show=CAAEngineeringWS/CAAEngineeringWSAPI.htm)"
+							},
+							"response": []
+						},
+						{
+							"name": "3.2.8 - Edit Engineering instance attributes",
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"id": "20322c41-6394-4983-879b-7b6e2a231f37",
+										"exec": [
+											"let company = pm.environment.get('company');\r",
+											"let username = pm.environment.get('username');\r",
+											"let role = pm.environment.get('role');\r",
+											"let collaborativespace = pm.environment.get('collaborative-space');\r",
+											"let securitycontext = role + \".\" + company + \".\" + collaborativespace;\r",
+											"pm.environment.set(\"security-context\", securitycontext);"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "PATCH",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									},
+									{
+										"key": "SecurityContext",
+										"value": "{{security-context}}",
+										"type": "text"
+									},
+									{
+										"key": "ENO_CSRF_TOKEN",
+										"value": "{{eno-csrf-token}}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"name\" : \"instance XXX\",\r\n  \"description\": \"My description updated from web services\"\r\n}",
+									"options": {
+										"raw": {}
+									}
+								},
+								"url": {
+									"raw": "{{service-3DSpace}}/resources/v1/modeler/dseng/dseng:EngItem/{{parent-engItem}}/dseng:EngInstance/{{engInst}}",
+									"host": [
+										"{{service-3DSpace}}"
+									],
+									"path": [
+										"resources",
+										"v1",
+										"modeler",
+										"dseng",
+										"dseng:EngItem",
+										"{{parent-engItem}}",
+										"dseng:EngInstance",
+										"{{engInst}}"
+									]
+								},
+								"description": "Modifies the Engineering Item Instance attributes.\r\n\r\n* [Internal 3DSpace Engineering Documentation](https://dsxdev-online.dsone.3ds.com/doconline/DSInternalExaDoc.htm?show=CAAEngineeringWS/CAAEngineeringWSTaOverview.htm)\r\n\r\n* [Internal 3DSpace Engineering Reference](https://dsxdev-online.dsone.3ds.com/doconline/DSInternalExaDoc.htm?show=CAAEngineeringWS/CAAEngineeringWSAPI.htm)"
+							},
+							"response": []
+						},
+						{
+							"name": "3.2.9 - Gets an Engineering Item Instance",
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"id": "9b05dd40-8244-446a-ba73-d99c18cd5714",
+										"exec": [
+											"let company = pm.environment.get('company');\r",
+											"let username = pm.environment.get('username');\r",
+											"let role = pm.environment.get('role');\r",
+											"let collaborativespace = pm.environment.get('collaborative-space');\r",
+											"let securitycontext = role + \".\" + company + \".\" + collaborativespace;\r",
+											"pm.environment.set(\"security-context\", securitycontext);\r",
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "SecurityContext",
+										"type": "text",
+										"value": "{{security-context}}"
+									},
+									{
+										"key": "ENO_CSRF_TOKEN",
+										"type": "text",
+										"value": "{{eno-csrf-token}}"
+									},
+									{
+										"key": "Content-Type",
+										"type": "text",
+										"value": "application/json"
+									}
+								],
+								"url": {
+									"raw": "{{service-3DSpace}}/resources/v1/modeler/dseng/dseng:EngItem/{{parent-engItem}}/dseng:EngInstance/{{engInst}}?$mask=dsmveng:EngInstanceMask.Details",
+									"host": [
+										"{{service-3DSpace}}"
+									],
+									"path": [
+										"resources",
+										"v1",
+										"modeler",
+										"dseng",
+										"dseng:EngItem",
+										"{{parent-engItem}}",
+										"dseng:EngInstance",
+										"{{engInst}}"
+									],
+									"query": [
+										{
+											"key": "$mask",
+											"value": "dsmveng:EngInstanceMask.Details"
+										}
+									]
+								},
+								"description": "Gets a Engineering Item Instance.\r\n\r\n* [Internal 3DSpace Engineering Documentation](https://dsxdev-online.dsone.3ds.com/doconline/DSInternalExaDoc.htm?show=CAAEngineeringWS/CAAEngineeringWSTaOverview.htm)\r\n\r\n* [Internal 3DSpace Engineering Reference](https://dsxdev-online.dsone.3ds.com/doconline/DSInternalExaDoc.htm?show=CAAEngineeringWS/CAAEngineeringWSAPI.htm)"
+							},
+							"response": []
+						},
+						{
+							"name": "3.2.10 - Add Enterprise Item Number",
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"id": "0c2366b9-4858-4cff-9e4f-1a8b3d6c3081",
+										"exec": [
+											"let company = pm.environment.get('company');\r",
+											"let username = pm.environment.get('username');\r",
+											"let role = pm.environment.get('role');\r",
+											"let collaborativespace = pm.environment.get('collaborative-space');\r",
+											"let securitycontext = role + \".\" + company + \".\" + collaborativespace;\r",
+											"pm.environment.set(\"security-context\", securitycontext);\r",
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"type": "text",
+										"value": "application/json"
+									},
+									{
+										"key": "SecurityContext",
+										"type": "text",
+										"value": "{{security-context}}"
+									},
+									{
+										"key": "ENO_CSRF_TOKEN",
+										"type": "text",
+										"value": "{{eno-csrf-token}}"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"partNumber\": \"{{newPartNumber}}\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{service-3DSpace}}/resources/v1/modeler/dseng/dseng:EngItem/{{engItem}}/dseng:EnterpriseReference",
+									"host": [
+										"{{service-3DSpace}}"
+									],
+									"path": [
+										"resources",
+										"v1",
+										"modeler",
+										"dseng",
+										"dseng:EngItem",
+										"{{engItem}}",
+										"dseng:EnterpriseReference"
+									],
+									"query": [
+										{
+											"key": "$mask",
+											"value": "",
+											"description": "dsmveng:EnterpriseReference.Details",
+											"disabled": true
+										}
+									]
+								},
+								"description": "Adding Enterprise Reference to an Engineering Item.\r\n\r\n* [Internal 3DSpace Engineering Documentation](https://dsxdev-online.dsone.3ds.com/doconline/DSInternalExaDoc.htm?show=CAAEngineeringWS/CAAEngineeringWSTaOverview.htm)\r\n\r\n* [Internal 3DSpace Engineering Reference](https://dsxdev-online.dsone.3ds.com/doconline/DSInternalExaDoc.htm?show=CAAEngineeringWS/CAAEngineeringWSAPI.htm)"
+							},
+							"response": []
+						},
+						{
+							"name": "3.2.12 - Get Enterprise Item Number",
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"id": "34ce1a47-8941-4504-96bf-278f51311d75",
+										"exec": [
+											"let company = pm.environment.get('company');\r",
+											"let username = pm.environment.get('username');\r",
+											"let role = pm.environment.get('role');\r",
+											"let collaborativespace = pm.environment.get('collaborative-space');\r",
+											"let securitycontext = role + \".\" + company + \".\" + collaborativespace;\r",
+											"pm.environment.set(\"security-context\", securitycontext);\r",
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Content-Type",
+										"type": "text",
+										"value": "application/json"
+									},
+									{
+										"key": "SecurityContext",
+										"type": "text",
+										"value": "{{security-context}}"
+									}
+								],
+								"url": {
+									"raw": "{{service-3DSpace}}/resources/v1/modeler/dseng/dseng:EngItem/{{engItem}}/dseng:EnterpriseReference",
+									"host": [
+										"{{service-3DSpace}}"
+									],
+									"path": [
+										"resources",
+										"v1",
+										"modeler",
+										"dseng",
+										"dseng:EngItem",
+										"{{engItem}}",
+										"dseng:EnterpriseReference"
+									],
+									"query": [
+										{
+											"key": "$mask",
+											"value": "",
+											"description": "dsmveng:EnterpriseReference.Details",
+											"disabled": true
+										}
+									]
+								},
+								"description": "Gets a Enterprise Reference of an Engineering item.\r\n\r\n* [Internal 3DSpace Engineering Documentation](https://dsxdev-online.dsone.3ds.com/doconline/DSInternalExaDoc.htm?show=CAAEngineeringWS/CAAEngineeringWSTaOverview.htm)\r\n\r\n* [Internal 3DSpace Engineering Reference](https://dsxdev-online.dsone.3ds.com/doconline/DSInternalExaDoc.htm?show=CAAEngineeringWS/CAAEngineeringWSAPI.htm)"
+							},
+							"response": []
+						},
+						{
+							"name": "3.2.11 - Modify Enterprise Item Number",
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"id": "a119104d-11c2-4f6f-9287-101c8634cafc",
+										"exec": [
+											"let company = pm.environment.get('company');\r",
+											"let username = pm.environment.get('username');\r",
+											"let role = pm.environment.get('role');\r",
+											"let collaborativespace = pm.environment.get('collaborative-space');\r",
+											"let securitycontext = role + \".\" + company + \".\" + collaborativespace;\r",
+											"pm.environment.set(\"security-context\", securitycontext);"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "PATCH",
+								"header": [
+									{
+										"key": "Content-Type",
+										"type": "text",
+										"value": "application/json"
+									},
+									{
+										"key": "SecurityContext",
+										"type": "text",
+										"value": "{{security-context}}"
+									},
+									{
+										"key": "ENO_CSRF_TOKEN",
+										"type": "text",
+										"value": "{{eno-csrf-token}}"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"partNumber\": \"{{editPartNumber}}\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{service-3DSpace}}/resources/v1/modeler/dseng/dseng:EngItem/{{engItem}}/dseng:EnterpriseReference",
+									"host": [
+										"{{service-3DSpace}}"
+									],
+									"path": [
+										"resources",
+										"v1",
+										"modeler",
+										"dseng",
+										"dseng:EngItem",
+										"{{engItem}}",
+										"dseng:EnterpriseReference"
+									],
+									"query": [
+										{
+											"key": "$mask",
+											"value": "",
+											"description": "dsmveng:EnterpriseReference.Details",
+											"disabled": true
+										}
+									]
+								},
+								"description": "Modifies the Enterprise Reference of an Engineering item attributes.\r\n\r\n* [Internal 3DSpace Engineering Documentation](https://dsxdev-online.dsone.3ds.com/doconline/DSInternalExaDoc.htm?show=CAAEngineeringWS/CAAEngineeringWSTaOverview.htm)\r\n\r\n* [Internal 3DSpace Engineering Reference](https://dsxdev-online.dsone.3ds.com/doconline/DSInternalExaDoc.htm?show=CAAEngineeringWS/CAAEngineeringWSAPI.htm)"
+							},
+							"response": []
+						}
+					],
+					"description": "* [Internal 3DSpace Engineering Documentation](https://dsxdev-online.dsone.3ds.com/doconline/DSInternalExaDoc.htm?show=CAAEngineeringWS/CAAEngineeringWSTaOverview.htm)\r\n\r\n* [Internal 3DSpace Engineering Reference](https://dsxdev-online.dsone.3ds.com/doconline/DSInternalExaDoc.htm?show=CAAEngineeringWS/CAAEngineeringWSAPI.htm)",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "4ec92934-91e9-4b99-8ad9-604eea347dda",
+								"type": "text/javascript",
+								"exec": [
+									""
+								]
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"id": "5f48984f-dd15-4f83-9c3b-511b5bc52eb4",
+								"type": "text/javascript",
+								"exec": [
+									""
+								]
+							}
+						}
+					],
+					"protocolProfileBehavior": {},
+					"_postman_isSubFolder": true
+				}
+			],
+			"protocolProfileBehavior": {}
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"id": "50e1db43-2765-4a96-8627-8273df002d73",
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"id": "a9556513-9735-41b5-bcc7-43c3cb0767c1",
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"protocolProfileBehavior": {}
+}
